@@ -1,0 +1,6 @@
+
+
+FUNCTION main
+	Set "sample_rate"
+	Set time between samples
+	
