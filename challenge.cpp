@@ -22,7 +22,8 @@ int main(){
                         // - how many samples are there altogether? What type should this variable be? 
    
    int* waveform = new int[n_samples]; // creates the array  
-   int volume = 6000; // 6000 is loud enough
+   int* volumes = new int[n_samples];
+   int volume = 0; // 6000 is loud enough
    double frequency;
    
    int note_duration = sample_rate/2;
@@ -32,15 +33,23 @@ int main(){
    while(getline(myfile, line)){
 	   while(note_number < note_duration && note_sample < n_samples){
 			waveform[note_sample] = stod(line) * 2;
+			if(note_number <= 2000){
+				volume = volume + 6;
+			} else if (note_number > 200){
+				volume = volume - 1;
+			}
+			volumes[note_sample] = volume;
 			note_sample++;
 			note_number++;
 	   }
 	   note_number = 0;
+	   volume = 6000;
    }
    myfile.close();
    
    for (int i_sample = 0; i_sample < n_samples ; i_sample++){
 			frequency = waveform[i_sample]; 
+			volume = volumes[i_sample];
 			// if using array 
 			waveform[i_sample] = volume*sin(2*M_PI*frequency*i_sample*dt);// 
    }
