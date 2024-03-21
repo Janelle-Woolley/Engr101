@@ -33,17 +33,19 @@ int main(){
    while(getline(myfile, line)){
 	   while(note_number < note_duration && note_sample < n_samples){
 			waveform[note_sample] = stod(line) * 2;
-			if(note_number <= 2000){
-				volume = volume + 6;
-			} else if (note_number > 200){
-				volume = volume - 1;
+			if(note_number <= 6000){
+				volume++;
+			} else if (note_number > 6000 && note_number < 16050){
+				volume = volume;
+			} else if (note_number >= 16050){
+				volume--;
 			}
 			volumes[note_sample] = volume;
 			note_sample++;
 			note_number++;
 	   }
 	   note_number = 0;
-	   volume = 6000;
+	   volume = 0;
    }
    myfile.close();
    
